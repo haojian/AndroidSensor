@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="recording_frequencies">
+        <item>Fastest (0ms)</item>
+        <item>Game (20ms)</item>
+        <item>UI (60ms)</item>
+        <item >Normal (200ms)</item>
+    </string-array>
+
+</resources> 
