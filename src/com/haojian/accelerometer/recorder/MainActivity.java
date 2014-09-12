@@ -1,4 +1,4 @@
-package com.phinfinity.accelerometer.recorder;
+package com.haojian.accelerometer.recorder;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,7 +29,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.phinfinity.accelerometer.recorder.AccelRecorderService.LocalBinder;
+import com.haojian.accelerometer.recorder.AccelRecorderService.LocalBinder;
+import com.phinfinity.accelerometer.recorder.R;
 
 public class MainActivity extends Activity {
 	View screen1, screen2;

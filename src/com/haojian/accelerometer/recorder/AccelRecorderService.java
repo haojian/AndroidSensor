@@ -1,4 +1,4 @@
-package com.phinfinity.accelerometer.recorder;
+package com.haojian.accelerometer.recorder;
 
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+
+import com.phinfinity.accelerometer.recorder.R;
 
 import android.app.IntentService;
 import android.app.PendingIntent;
