@@ -22,7 +22,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="com.haojian.accelerometer.app.DirectionDetector"
+            android:name="com.haojian.accelerometer.app.DirectionDetector_v1"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait" >
            
