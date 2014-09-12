@@ -1,0 +1,30 @@
+# Package Files #
+#*.jar
+#!lib/
+*.war
+*.ear
+*.so
+
+# generated Files #
+/target
+/gen
+/bin
+/obj
+/.settings
+/libs/armeabi-v7a/
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# local Eclipse project files
+.DS_Store
+
+*.cproject
+
