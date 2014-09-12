@@ -30,7 +30,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.haojian.accelerometer.recorder.AccelRecorderService.LocalBinder;
-import com.phinfinity.accelerometer.recorder.R;
+import com.haojian.sensorplayground.R;
 
 public class MainActivity extends Activity {
 	View screen1, screen2;

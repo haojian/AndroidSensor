@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
-import com.phinfinity.accelerometer.recorder.R;
+import com.haojian.sensorplayground.R;
 
 import android.app.IntentService;
 import android.app.PendingIntent;
