@@ -9,14 +9,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top|left"
         android:text="directions" />
+    <TextView
+        android:id="@+id/lbl_movements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_directions"
+        android:text="directions" />
 
     <com.androidplot.xy.XYPlot
         android:id="@+id/plot_sensor"
         android:layout_width="fill_parent"
         android:layout_height="220dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="200dp"
+        android:layout_alignParentBottom="true"
         title="Acceleration" />
 
 </RelativeLayout>

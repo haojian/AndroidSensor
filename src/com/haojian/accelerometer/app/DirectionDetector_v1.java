@@ -1,5 +1,6 @@
 package com.haojian.accelerometer.app;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
@@ -25,9 +26,10 @@ public class DirectionDetector_v1 extends Activity implements SensorEventListene
 	public final static String TAG = DirectionDetector_v1.class.getName();
 
 	TextView textView;
+	TextView tv_movement;
 	StringBuilder builder = new StringBuilder();
 
-	float threshold = 0.3f;
+	float threshold = 0.5f;
 	float MIN_ACC = 0.1f;
 	public enum DIRECTION{STATIC, POSITIVE, NEGATIVE};
 
@@ -36,10 +38,11 @@ public class DirectionDetector_v1 extends Activity implements SensorEventListene
 	private DescriptiveStatistics stat_y = new DescriptiveStatistics(10);
 	private DescriptiveStatistics stat_z = new DescriptiveStatistics(10);
 
-	private boolean motionFlag = false;
 	
 	private float[] acc_val = new float[3];
 	private int[] static_counter = new int[3];
+	private int[] curAcc_Flag = new int[3];
+
 	
 	// Graph plot for the UI outputs
 	private DynamicLinePlot dynamicPlot;
@@ -65,13 +68,23 @@ public class DirectionDetector_v1 extends Activity implements SensorEventListene
 	// Handler for the UI plots so everything plots smoothly
 	private Handler handler;
 	
+	// Gesture detections
+	private ArrayList<ArrayList<Integer>> peaks;
+	private String movement_history = "";
+	private int[] motionFlag = new int[3];
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		textView = new TextView(this);
 		setContentView(R.layout.activity_directiondetector);
-//		setContentView(textView);
-		textView = (TextView)findViewById(R.id.lbl_directions);
+		textView 	= (TextView)findViewById(R.id.lbl_directions);
+		tv_movement =  (TextView)findViewById(R.id.lbl_movements);
+		
+		peaks = new ArrayList<ArrayList<Integer>>();
+		for(int i=0; i<3; i++){
+			peaks.add(new ArrayList<Integer>());
+		}
+		Log.v(TAG, " " + peaks.size());
 		// Create the graph plot
 		XYPlot plot = (XYPlot) findViewById(R.id.plot_sensor);
 		plot.setTitle("Acceleration");
@@ -138,13 +151,36 @@ public class DirectionDetector_v1 extends Activity implements SensorEventListene
 					if(acc_val[i] > threshold && direction[i] == DIRECTION.STATIC){
 						//init one movement.
 						direction[i] = DIRECTION.POSITIVE;
+						motionFlag[i] = 1;
+						peaks.get(i).add(1);
 					}else if(acc_val[i] < -threshold && direction[i] == DIRECTION.STATIC){
 						direction[i] = DIRECTION.NEGATIVE;
+						motionFlag[i] = -1;
+						peaks.get(i).add(-1);
+					}
+					if(motionFlag[i] != 0){
+						if( (acc_val[i] < -threshold || acc_val[i] > threshold) &&
+								motionFlag[i] * acc_val[i] < 0){
+							motionFlag[i] *= -1;
+							peaks.get(i).add(motionFlag[i]);
+						}
 					}
 				}else{
 					static_counter[i]++;
-					if(static_counter[i] > 10 ){
+					if(static_counter[i] > 5 ){
 						direction[i] = DIRECTION.STATIC;
+						motionFlag[i] = 0;
+						if(i==0 && peaks.get(i).size() != 0)
+							Log.v(TAG, peaks.get(i).toString());
+						if(i==0 &&  peaks.get(i).size() == 3 ){
+							if(peaks.get(i).toString().equals("[1, -1, 1]")){
+								Log.v(TAG, "right");
+							}else if( peaks.get(i).toString().equals("[-1, 1, -1]") ){
+								Log.v(TAG, "left");
+							}
+//							
+						}
+						peaks.get(i).clear();
 					}
 				}
 			}
