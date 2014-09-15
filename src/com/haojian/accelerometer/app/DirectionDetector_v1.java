@@ -144,7 +144,6 @@ public class DirectionDetector_v1 extends Activity implements SensorEventListene
 			acc_val[1] = (float) stat_y.getMean();
 			acc_val[2] = (float) stat_z.getMean();
 			acc_val = mechFilter(acc_val);
-//			Log.v(TAG, Arrays.toString(acc_val));
 			for(int i=0; i<3; ++i){
 				if(acc_val[i] != 0 ){
 					static_counter[i] = 0;
